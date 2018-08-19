@@ -1,7 +1,7 @@
 errbit:
   image: errbit/errbit:latest
   ports:
-    - "8080:8080"
+    - "8070:8080"
   links:
     - mongo
   environment:
