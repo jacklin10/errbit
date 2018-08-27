@@ -1,14 +1,24 @@
-errbit:
-  image: errbit/errbit:latest
-  ports:
-    - "8070:8080"
-  links:
-    - mongo
-  environment:
-    - PORT=8080
-    - RACK_ENV=production
-    - MONGO_URL=mongodb://mongo:27017/errbit
-mongo:
-  image: mongo:4.0
-  ports:
-    - "27017"
+version: "3"
+services: 
+  errbit:
+    image: errbit/errbit:latest
+    ports:
+      - "8070:8080"
+    depends_on:
+      - mongo
+    volumes: 
+       - ./.env:/app/.env
+    environment:
+      - PORT=8080
+      - RACK_ENV=production
+      - MONGO_URL=mongodb://mongo:27017/errbit
+  mongo:
+    image: mongo:4.0
+    volumes: 
+      - errbitdata:/data/db
+    ports:
+      - "27017"
+
+volumes: 
+  errbitdata: 
+

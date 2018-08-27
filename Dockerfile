@@ -31,6 +31,9 @@ RUN apk add --no-cache --virtual build-dependencies \
 
 COPY . /app
 
+# creating a blank .env file so I can copy one in during the compose
+RUN touch .env
+
 RUN RAILS_ENV=production bundle exec rake assets:precompile \
   && rm -rf /app/tmp/* \
   && chmod 777 /app/tmp
