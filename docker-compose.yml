@@ -8,16 +8,23 @@ services:
       - mongo
     volumes: 
        - ./.env:/app/.env
+    labels:
+      - traefik.enable=false
     environment:
       - PORT=8080
       - RACK_ENV=production
       - MONGO_URL=mongodb://mongo:27017/errbit
+    restart: unless-stopped
+
   mongo:
     image: mongo:4.0
     volumes: 
       - errbitdata:/data/db
+    labels:
+      - traefik.enable=false
     ports:
       - "27017"
+    restart: unless-stopped
 
 volumes: 
   errbitdata: 
